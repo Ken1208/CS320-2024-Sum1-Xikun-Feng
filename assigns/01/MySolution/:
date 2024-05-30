@@ -1,0 +1,23 @@
+(* ****** ****** *)
+
+use "./../assign01-lib.sml";
+
+(* ****** ****** *)
+
+(*
+fun isPrime(n0: int): bool =
+    let
+	fun checkDivisor(d,n) =
+	    if d*d > n then true
+	    else if n mod d = 0 then false
+	    else checkDivisor(d+1, n)
+    in 
+	if n0 < 2 then false
+	else checkDivisor(2, n0)
+    end;
+
+*)
+
+(* ****** ****** *)
+
+(* end of [CS320-2024-Sum1-assign01-02.sml] *)
