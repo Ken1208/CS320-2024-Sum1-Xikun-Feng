@@ -30,7 +30,7 @@ fun date_cmpr (date1: string, date2: string): int =
 		val year1 = date1.year
 		val year2 = date2.year
 	in
-    if year1 < year2 then -1
+		if year1 < year2 then -1
     if year1 > year2 then 1
 		if year1 == year2 then
 			let
