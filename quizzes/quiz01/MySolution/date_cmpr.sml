@@ -26,28 +26,28 @@ date_cmpr
 Please give your implementation of [date_cmpr] below *)
 
 fun date_cmpr (date1: string, date2: string): int =
-  let
+	let
 		val year1 = date1.year
 		val year2 = date2.year
 	in
 		if year1 < year2 then -1
-    if year1 > year2 then 1
+   		if year1 > year2 then 1
 		if year1 == year2 then
 			let
 				val month1 = date1.month
 				val month2 = date2.month
 			in
 				if month1 < month2 then -1
-    		if month1 > month2 then 1
+    				if month1 > month2 then 1
 				if month1 == month2 then
 					let
 						val day1 = date1.day
 						val day2 = date2.day
 					in
-				    if day1 < day2 then -1
-				    if day1 > day2 then 1
+				    		if day1 < day2 then -1
+				    		if day1 > day2 then 1
 						if day1 == day2 then 0
-  end
+	end
 
 
 
