@@ -1,6 +1,6 @@
 type date =
 {year: int, month: int, day: int}
-	 
+
 val today = {year=2024, month=5, day=31}
 
 exception NotImplemented
@@ -28,7 +28,50 @@ date_succ(date: date): date = raise NotImplemented
 (*
 Please give your implementation of [date_succ] below *)
 
+fun Last_Day_non_leap(month: int): int =
+  case month of
+      1 => 31
+    | 2 => 28
+    | 3 => 31
+    | 4 => 30
+    | 5 => 31
+    | 6 => 30
+    | 7 => 31
+    | 8 => 31
+    | 9 => 30
+    | 10 => 31
+    | 11 => 30
+    | 12 => 31
+
+	fun Last_Day_leap(month: int): int =
+	  case month of
+	      1 => 31
+	    | 2 => 29
+	    | 3 => 31
+	    | 4 => 30
+	    | 5 => 31
+	    | 6 => 30
+	    | 7 => 31
+	    | 8 => 31
+	    | 9 => 30
+	    | 10 => 31
+	    | 11 => 30
+	    | 12 => 31
+
+fun date_succ(date: date): date =
+  let
+    val next_day = date.day + 1
+    val Last_Day = if (date.year mod 4 == 0) then Last_Day_leap(date.month) else Last_Day_non_leap(date.month)
+  in
+    if next_day > Last_Day then
+      if date.month = 12 then
+        { date.year = date.year + 1, date.month = 1, date.day = 1 }
+      else
+        { date.year = date.year, date.month = date.month + 1, date.day = 1 }
+    else
+      { date.year = date.year, date.month = date.month, date.day = next_day }
+  end
+
 (* ****** ****** *)
 
 (* end of [quizzes/quiz01/date_succ.sml] *)
-
