@@ -55,4 +55,17 @@ val strsub = String.sub (* string subcripting *)
 
 (* ****** ****** *)
 
-(* end of [CS320-2023-Spring-assign01-lib.sml] *)
+structure Int = struct end
+structure List = struct end
+structure String = struct end
+
+(* ****** ****** *)
+
+exception DisallowedFunctionExn
+
+fun explode _ = raise DisallowedFunctionExn
+fun implode _ = raise DisallowedFunctionExn
+
+(* ****** ****** *)
+
+(* end of [CS320-2024-Sum1-assign01-lib.sml] *)

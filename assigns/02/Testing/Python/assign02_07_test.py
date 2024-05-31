@@ -47,21 +47,20 @@ def mylist_sortedq(xs):
         if (xs.ctag==0):
             return True
         else:
-            x1 = xs.cons1
-            xs = xs.cons2
+            x1 = xs.arg1
+            xs = xs.arg2
             return (x0 <= x1 and helper(xs, x1))
         # end-of-[if-then-else]
     if (xs.ctag==0):
         return True
     else:
-        return helper(xs.cons2, xs.cons1)
+        return helper(xs.arg2, xs.arg1)
     # end-of-[if-then-else]
 # end-of-[def mylist_sortedq(xs)]
 ####################################################
 ys = mylist_mergesort(xs)
 print("ys = ",end=''); mylist_print(ys); print();
 assert(mylist_sortedq(ys))
-print("ys = ",end=''); mylist_print(ys); print();
 ####################################################
 print("Assign02-07-test passed!\n")
 ####################################################

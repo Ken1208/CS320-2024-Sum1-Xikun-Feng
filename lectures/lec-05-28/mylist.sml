@@ -17,7 +17,8 @@ fun
 mylist_sing
 (x: int): mylist =
 mycons(x, mynil)
- val xs = mylist_sing(10)
+
+val xs = mylist_sing(10)
 
 (* ****** ****** *)
 (*
@@ -47,7 +48,7 @@ else
 
 (* ****** ****** *)
 (*
-  val a_very_long_list = mylist_range(1000000)
+val a_very_long_list = mylist_range(1000000)
 *)
 (* ****** ****** *)
 
@@ -63,7 +64,6 @@ case xs of
 val xs3 = mylist_append(xs2, xs2)
 
 (* ****** ****** *)
-
 fun
 mylist_reverse
 (xs: 'a mylist): 'a mylist = mylist_rappend(xs, mynil)
@@ -74,13 +74,13 @@ mylist_rappend
 case xs of
   mynil => ys
 | mycons(x1, xs) => mylist_rappend(xs, mycons(x1, ys))
-
 (* ****** ****** *)
 
 val xs4 = mylist_range(5)
 val xs5 = mylist_reverse(xs4)
+
 val xs6 = PolyML.print("xs5 = ", xs5)
 
 (* ****** ****** *)
 
-(* end of [mylist.sml] *)
+(* end of [lectures/lec-05-28/mylist.sml] *)

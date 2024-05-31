@@ -20,4 +20,4 @@ end
 val fact10_trec = fact_trec(10)
 (* ****** ****** *)
 
-(* end of [lectures/lec-05-22-fact.sml] *)
+(* end of [lectures/lec-05-22/fact.sml] *)

@@ -26,4 +26,4 @@ end (* end-of-local *)
 
 (* ****** ****** *)
 
-(* end of [CS320-2023-Spring-assign01-05-test.sml] *)
+(* end of [CS320-2024-Sum1-assign01-05-test.sml] *)

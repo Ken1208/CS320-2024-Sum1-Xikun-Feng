@@ -13,7 +13,18 @@ exception XlistSubscript
 (* ****** ****** *)
 
 exception NotImplemented320
+exception DisallowedFunction320
 		       
+(* ****** ****** *)
+
+val chr = Char.chr
+val ord = Char.ord
+
+(* ****** ****** *)
+
+val implode = String.implode
+val explode = String.explode
+
 (* ****** ****** *)
 
 fun
@@ -155,7 +166,7 @@ case ys of
 )
 )
 
-in
+in(*let*)
 
 case xs of
   nil => []
@@ -173,6 +184,16 @@ case xs of
 
 end (* end-of-[list_mergesort]: let *)
 
+(* ****** ****** *)
+(* ****** ****** *)
+
+structure Int = struct end
+structure List = struct end
+structure Char = struct end
+structure String = struct end
+structure TextIO = struct end
+
+(* ****** ****** *)
 (* ****** ****** *)
 
 (* end of [CS320-2024-Sum1-assign02-lib.sml] *)

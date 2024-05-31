@@ -1,6 +1,6 @@
 (* ****** ****** *)
 
-use "./../MySolution/assign01-01.sml";
+use "./../MySolution/sort5.sml";
 
 (* ****** ****** *)
 
@@ -14,17 +14,15 @@ in
 // changed to another value.
 *)
 (* ****** ****** *)
-val () =
-if
-(myans <> 13)
-andalso
-(myans <> 21)
-then raise Error else ()
+val xs = (2, 3, 4, 1, 5)
 (* ****** ****** *)
-val () = print("Assign01-01-test passed!\n")
+val
+(1, 2, 3, 4, 5) = sort5(xs)
+(* ****** ****** *)
+val () = print("sort5-test passed!\n")
 (* ****** ****** *)
 end (* end-of-local *)
 
 (* ****** ****** *)
 
-(* end of [CS320-2024-Sum1-assign01-01-test.sml] *)
+(* end of [CS320-2024-Sum1-sort5-test.sml] *)

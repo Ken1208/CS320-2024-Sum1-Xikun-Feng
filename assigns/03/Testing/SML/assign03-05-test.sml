@@ -1,5 +1,6 @@
 (* ****** ****** *)
-use "./../MySolution/assign01-02.sml";
+use
+"./../../MySolution/SML/assign03-05.sml";
 (* ****** ****** *)
 
 local
@@ -8,6 +9,14 @@ exception Error
 
 in (* in-of-local *)
 
+(* ****** ****** *)
+val () =
+if (isPrime(0)) then raise Error else ()
+val () =
+if (isPrime(1)) then raise Error else ()
+val () =
+if not(isPrime(2)) then raise Error else ()
+(* ****** ****** *)
 val () =
 if (isPrime(5) <> true) then raise Error else ()
 val () =
@@ -22,11 +31,11 @@ val () =
 if (isPrime(10001) <> false) then raise Error else ()
 
 (* ****** ****** *)
-val () = print("Assign01-02-test passed!\n")
+val () = print("Assign03-05-test passed!\n")
 (* ****** ****** *)
 
 end (* end-of-local *)
 
 (* ****** ****** *)
 
-(* end of [CS320-2024-Sum1-assign01-02-test.sml] *)
+(* end of [CS320-2024-Sum1-assign03-05-test.sml] *)
