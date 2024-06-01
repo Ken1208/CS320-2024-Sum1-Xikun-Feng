@@ -31,24 +31,25 @@ fun date_cmpr (date1: string, date2: string): int =
 		val year2 = date2.year
 	in
 		if year1 < year2 then -1
-   		if year1 > year2 then 1
-		if year1 == year2 then
+   		else if year1 > year2 then 1
+		else
 			let
 				val month1 = date1.month
 				val month2 = date2.month
 			in
 				if month1 < month2 then -1
-    				if month1 > month2 then 1
-				if month1 == month2 then
+  				else if month1 > month2 then 1
+				else
 					let
 						val day1 = date1.day
 						val day2 = date2.day
 					in
-				    		if day1 < day2 then -1
-				    		if day1 > day2 then 1
-						if day1 == day2 then 0
+			    			if day1 < day2 then -1
+			    			else if day1 > day2 then 1
+						else	0
+					end
+			end
 	end
-
 
 
 (* ****** ****** *)
