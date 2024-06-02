@@ -5,10 +5,6 @@ use (* for class library *)
 use "./../../MySolution/SML/assign02-01.sml";
 (* ****** ****** *)
 
-val list_size = List.length
-
-(* ****** ****** *)
-
 local
 exception Error
 in(*local*)

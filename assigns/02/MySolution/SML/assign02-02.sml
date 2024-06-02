@@ -1,7 +1,11 @@
 (* ****** ****** *)
 use "./../../assign02-lib.sml";
 (* ****** ****** *)
+(*
+Please manually copy your implementation
+of xlist_size if you need it:
 use "./../../MySolution/SML/assign02-01.sml";
+*)
 (* ****** ****** *)
 
 (*

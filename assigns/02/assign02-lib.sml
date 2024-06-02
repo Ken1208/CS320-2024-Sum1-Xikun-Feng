@@ -3,8 +3,13 @@
 Assign02: Onward!
 *)
 (* ****** ****** *)
+val list_nth = List.nth
+(* ****** ****** *)
 val list_append = op@
 val list_reverse = List.rev
+(* ****** ****** *)
+val list_size = List.length
+val list_length = List.length
 (* ****** ****** *)
 
 exception XlistConsMatch

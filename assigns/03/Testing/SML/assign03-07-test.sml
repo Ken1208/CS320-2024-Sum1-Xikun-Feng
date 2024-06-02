@@ -5,7 +5,8 @@ use
 
 local
 
-exception Error
+exception
+Error320 of string option
 
 in (* in-of-local *)
 
@@ -14,7 +15,31 @@ in (* in-of-local *)
 fun
 power
 (x: int, y: int): int =
-int1_foldleft(1, y, fn(r, _) => r * x)
+if x > 0 then x * power(x-1, y) else 1
+
+(* ****** ****** *)
+fun
+assert320
+(claim: bool): unit =
+if claim
+  then () else raise Error320(NONE)
+(* end of [assert320] *)
+
+fun
+assert320_some
+(claim: bool, errmsg: string): unit =
+if claim
+  then () else raise Error320(SOME(errmsg))
+(* end of [assert320_some] *)
+(* ****** ****** *)
+
+fun
+list_forall(xs, test) =
+case xs of
+  [] => true
+| x1 :: xs =>
+  if test(x1)
+  then list_forall(xs, test) else false
 
 (* ****** ****** *)
 

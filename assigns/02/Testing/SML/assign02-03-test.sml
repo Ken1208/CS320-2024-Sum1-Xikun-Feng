@@ -5,10 +5,6 @@ use (* for class library *)
 use "./../../MySolution/SML/assign02-03.sml";
 (* ****** ****** *)
 
-val list_size = List.length
-
-(* ****** ****** *)
-
 fun
 nappend(xs: 'a xlist): int =
 (

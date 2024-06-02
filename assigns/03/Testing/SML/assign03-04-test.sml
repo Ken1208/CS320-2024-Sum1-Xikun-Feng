@@ -1,9 +1,24 @@
 (* ****** ****** *)
-use (* for class library *)
-"./../../../../mylib/SML/mylib-cls.sml";
 (* ****** ****** *)
 use
 "./../../MySolution/SML/assign03-04.sml";
+(* ****** ****** *)
+(* ****** ****** *)
+exception
+Error320 of string option
+fun
+assert320
+(claim: bool): unit =
+if claim
+  then () else raise Error320(NONE)
+(* end of [assert320] *)
+fun
+assert320_some
+(claim: bool, errmsg: string): unit =
+if claim
+  then () else raise Error320(SOME(errmsg))
+(* end of [assert320_some] *)
+(* ****** ****** *)
 (* ****** ****** *)
 val xs = []
 val () =
