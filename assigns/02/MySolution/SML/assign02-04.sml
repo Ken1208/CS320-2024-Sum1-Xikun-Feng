@@ -27,9 +27,29 @@ fun str2int_opt(cs: string): int option
 
 (* ****** ****** *)
 
-fun
-str2int_opt(cs: string): int option = raise NotImplemented320
-						
+fun str2int_opt (cs: string): int option =
+    let
+        fun char_to_int (c: char): int = ord(c) - ord(#"0")
+
+        fun is_digit (c: char): bool = (#"0" <= c) andalso (c <= #"9")
+
+        fun process_chars (chars: char list, acc: int): int option =
+            case chars of
+                nil => SOME acc
+              | c :: cs =>
+                if is_digit c then
+                    process_chars(cs, acc * 10 + char_to_int(c))
+                else
+                    NONE
+
+        val chars = explode(cs)
+    in
+        if list_size chars = 0 then
+            NONE
+        else
+            process_chars(chars, 0)
+    end
+
 (* ****** ****** *)
 
 (* end of [CS320-2024-Sum1-assign02-04.sml] *)
