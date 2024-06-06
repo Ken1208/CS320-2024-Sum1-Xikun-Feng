@@ -35,3 +35,6 @@ Please give a non-recursive combinator-based
 implementation of string_span.
 
 *)
+
+fun string_span(input: string, accept: string): bool =
+  string_forall(input, fn c => string_exists(accept, fn a => c = a))

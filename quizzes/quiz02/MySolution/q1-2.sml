@@ -24,3 +24,22 @@ fun implode(char list): string
 
 *)
 
+fun int2str(i0: int): string =
+  let
+    val digits =
+      list_foldr(
+        let
+          fun digits_list(n, acc) =
+            if n = 0 then
+              if null acc then [#"0"] else acc
+            else
+              digits_list(n div 10, chr (ord #"0" + (n mod 10)) :: acc)
+        in
+          digits_list(i0, [])
+        end,
+        [],
+        fn (digit, acc) => digit :: acc
+      )
+  in
+    implode(digits)
+  end

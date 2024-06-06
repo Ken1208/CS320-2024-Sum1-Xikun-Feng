@@ -22,3 +22,16 @@ implementation of palindromeq. No string equality
 is allowed.
 
 *)
+
+fun palindromeq(input: string): bool =
+  let
+    val len = strlen(input)
+    fun check_palindrome(i, result) =
+      if i >= len div 2 then
+        result
+      else
+        result andalso (strsub(input, i) = strsub(input, len - 1 - i))
+
+  in
+    int1_foldl(len div 2, true, fn (result, i) => check_palindrome(i, result))
+  end
