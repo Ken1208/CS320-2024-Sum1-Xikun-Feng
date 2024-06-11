@@ -44,4 +44,14 @@ forall_to_exists
 
 (* ****** ****** *)
 
+fun
+forall_to_exists
+(forall: ('seq, 'elt) forall_t): ('seq, 'elt) exists_t =
+fn (xs, pred) =>
+let
+  val result = forall (xs, fn x => not (pred x))
+in
+  not result
+end
+
 (* end of [CS320-2024-Sum1-assign03-07.sml] *)

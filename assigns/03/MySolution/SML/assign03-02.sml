@@ -21,4 +21,20 @@ fun list_range(start: int, finish: int): int list
 
 (* ****** ****** *)
 
+fun list_foldl(xs: 'a list, r0: 'b, f0: 'b * 'a -> 'b): 'b =
+case xs of [] => r0
+	 | x1 :: xs => list_foldl(xs, f0(r0, x1), f0)
+
+fun list_reverse(xs: 'a list): 'a list =
+list_foldl(xs, [], fn(r0, x1) => x1 :: r0)
+
+fun list_range(start: int, finish: int): int list =
+    let
+        fun aux(current: int, acc: int list): int list =
+            if current >= finish then acc
+            else aux(current + 1, current :: acc)
+    in
+        list_reverse(aux(start, []))
+    end
+
 (* end of [CS320-2024-Sum1-assign03-02.sml] *)

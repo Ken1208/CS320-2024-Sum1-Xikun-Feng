@@ -31,4 +31,25 @@ end
 
 (* ****** ****** *)
 
+fun list_exists(xs: 'a list, test: 'a -> bool): bool =
+(
+case xs of
+  [] => false
+| x1 :: xs =>
+  if test(x1)
+  then true else list_exists(xs, test))
+
+fun range(start: int, stop: int): int list =
+    if start > stop then [] else start :: range(start + 1, stop)
+
+fun isPrime(n0: int): bool =
+    if n0 < 2 then false
+    else
+        let
+            val limit = floor(Math.sqrt(real n0))
+            val candidates = range(2, limit)     
+        in
+            not (list_exists(candidates, fn i => n0 mod i = 0))
+        end
+
 (* end of [CS320-2024-Sum1-assign03-05.sml] *)

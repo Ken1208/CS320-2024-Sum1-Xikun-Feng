@@ -18,4 +18,14 @@ find_root(f0: int -> int): int = ...
 
 (* ****** ****** *)
 
+fun find_root(f0: int -> int): int =
+    let
+        fun loop(i: int): int =
+            if f0(i) = 0 then i
+            else if f0(~i) = 0 then ~i
+            else loop(i+1)
+    in
+        loop(0)
+    end
+
 (* end of [CS320-2024-Sum1-assign03-01.sml] *)
