@@ -38,3 +38,7 @@ implementation of string_span.
 
 fun string_span(input: string, accept: string): bool =
   string_forall(input, fn c => string_exists(accept, fn a => c = a))
+
+(*
+I changed the list_forall into string_forall
+*)

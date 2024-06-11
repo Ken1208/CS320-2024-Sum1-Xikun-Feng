@@ -35,3 +35,7 @@ fun palindromeq(input: string): bool =
   in
     int1_foldl(len div 2, true, fn (result, i) => check_palindrome(i, result))
   end
+
+(*
+I misused the list.reverse and revised it with a helper function check_palindrome
+*)

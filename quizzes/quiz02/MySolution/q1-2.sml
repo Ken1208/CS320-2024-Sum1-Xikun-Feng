@@ -43,3 +43,7 @@ fun int2str(i0: int): string =
   in
     implode(digits)
   end
+
+(*
+I changed the combine function and the defined variable digitlist into a digits_list function 
+*)

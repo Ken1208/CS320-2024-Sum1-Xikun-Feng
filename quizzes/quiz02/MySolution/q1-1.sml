@@ -20,3 +20,9 @@ in Assign01. No error-handling is needed.
 
 fun str2int(rep: string): int =
     string_foldl(rep, 0, fn (acc, c) => acc * 10 + (ord(c) - ord(#"0")))
+
+
+(*
+I changed list_foldl into string_foldl;
+Also 'char.ord(c)-char.ord#' into (ord(c) - ord(#"0")).
+*)
