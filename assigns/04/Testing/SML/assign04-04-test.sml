@@ -5,7 +5,13 @@ use
 
 local
 
-exception Error
+exception ERROR_assign04_04
+
+fun
+myassert
+(claim: bool): unit =
+if claim
+then () else raise ERROR_assign04_04
 
 in (* in-of-local *)
 
@@ -18,27 +24,27 @@ val fxs = the_ln2_stream
 val strcon_cons(x1, fxs) = fxs()
 val () =
 print("x1 = "^Real.toString(x1)^"\n")
-val () = assert320(abs(x1 - 1.0) < eps)
+val () = myassert(abs(x1 - 1.0) < eps)
 
 val strcon_cons(x1, fxs) = fxs()
 val () =
 print("x1 = "^Real.toString(x1)^"\n")
-val () = assert320(abs(x1 - 0.5) < eps)
+val () = myassert(abs(x1 - 0.5) < eps)
 
 val strcon_cons(x1, fxs) = fxs()
 val () =
 print("x1 = "^Real.toString(x1)^"\n")
-val () = assert320(abs(x1 - 0.833333) < eps)
+val () = myassert(abs(x1 - 0.833333) < eps)
 
 val strcon_cons(x1, fxs) = fxs()
 val () =
 print("x1 = "^Real.toString(x1)^"\n")
-val () = assert320(abs(x1 - 0.5833333) < eps)
+val () = myassert(abs(x1 - 0.5833333) < eps)
 
 val strcon_cons(x1, fxs) = fxs()
 val () =
 print("x1 = "^Real.toString(x1)^"\n")
-val () = assert320(abs(x1 - 0.7833333) < eps)
+val () = myassert(abs(x1 - 0.7833333) < eps)
 
 (* ****** ****** *)
 

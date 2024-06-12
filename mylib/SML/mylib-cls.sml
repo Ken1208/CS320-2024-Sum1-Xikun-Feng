@@ -33,13 +33,21 @@ exception NotImplemented320
 (* ****** ****** *)
 
 type
-('xs, 'x0) foreach_t =
+('xs, 'x0) forall =
+'xs * ('x0 -> bool) -> bool
+type
+('xs, 'x0) foreach =
 'xs * ('x0 -> unit) -> unit
+
 type
-('xs, 'x0) iforeach_t =
+('xs, 'x0) iforall =
+'xs * (int * 'x0 -> bool) -> bool
+type
+('xs, 'x0) iforeach =
 'xs * (int * 'x0 -> unit) -> unit
+
 type
-('xs, 'x0, 'r0) ifoldleft_t =
+('xs, 'x0, 'r0) ifoldleft =
 'xs * 'r0 * ('r0 * int * 'x0 -> 'r0) -> 'r0
 
 (* ****** ****** *)
@@ -77,12 +85,15 @@ fun
 pow_int_int
 (x: int, y: int): int =
 let
-  fun loop(y: int, res: int): int =
-    if y > 0
-    then loop(y-1, x * res) else res
+fun
+loop
+(y: int, res: int): int =
+if y > 0
+then
+loop(y-1, x * res) else res
 in
   loop(y, 1)
-end
+end (*let*) (* end-of-[pow_int_int] *)
 
 (* ****** ****** *)
 
@@ -110,6 +121,7 @@ print_char
 (c: char) = print( String.str(c) )
 
 (* ****** ****** *)
+
 fun
 print_bool
 (x: bool) = print(Bool.toString(x))
@@ -482,22 +494,21 @@ list_foldr
 
 fun
 forall_to_foreach
-( forall
-: ('xs * ('x0 -> bool)) -> bool
-)
-: ('xs * ('x0 -> unit)) -> unit =
+(
+  forall
+: ('xs, 'x0)forall
+) : ('xs, 'x0)foreach =
 fn(xs, work) =>
-(forall(xs, fn(x0) => (work(x0); true)); ())
+(forall
+(xs, fn(x0) => (work(x0); true)); ())
 
 (* ****** ****** *)
 
 fun
 foreach_to_forall
 ( foreach
-: ('xs * ('x0 -> unit)) -> unit
-)
-: ('xs * ('x0 -> bool)) -> bool =
-fn(xs: 'xs, test: 'x0 -> bool) =>
+: ('xs, 'x0)foreach
+) : ('xs, 'x0)forall = fn(xs, test) =>
 let
   exception False
 in(*let*)
@@ -620,10 +631,8 @@ foreach_to_foldleft
 fun
 foreach_to_filter_list
 (
-foreach:
-('xs * ('x0->unit))->unit)
-:
-('xs * ('x0 -> bool)) -> 'x0 list
+foreach: ('xs, 'x0)foreach)
+: ('xs * ('x0 -> bool)) -> 'x0 list
 =
 (
 fn(xs, test) =>
@@ -746,13 +755,30 @@ val list_enumerate = list_labelize
 fun
 foreach_to_iforeach
 ( foreach
-: ('xs, 'x0) foreach_t): ('xs, 'x0) iforeach_t =
+: ('xs, 'x0) foreach): ('xs, 'x0) iforeach =
 fn(xs, iwork) =>
 let
 val _ =
 foreach_to_foldleft(foreach)
-(xs, 0, fn(p, x) => (iwork(p, x); p+1)) in () end
+( xs, 0
+, fn(p, x) => (iwork(p, x); p+1)) in () end
 
+fun
+iforeach_to_ifoldleft
+( iforeach
+: ('xs * (int * 'x0 -> unit)) -> unit
+)
+: ('xs * 'r0 * ('r0*int*'x0 -> 'r0)) -> 'r0 =
+fn(xs, r0, ifopr) =>
+let
+val res = ref(r0)
+in
+iforeach
+( xs
+, fn(i, x0) => res := ifopr(!res, i, x0)); !res
+end (* end of [iforeach_to_ifoldleft]: let *)
+
+(* ****** ****** *)
 (* ****** ****** *)
 
 fun
@@ -771,14 +797,24 @@ fun
 list_z2foreach
 ( xs: 'a list
 , ys: 'b list
-, work: ('a * 'b) -> unit): unit =
+, work2: ('a * 'b) -> unit): unit =
 (
 case (xs, ys) of
   (nil, _) => ()
 | (_, nil) => ()
 | (x1 :: xs, y1 :: ys) =>
-  (work(x1, y1); list_z2foreach(xs, ys, work))
+  (work2(x1, y1); list_z2foreach(xs, ys, work2))
 )
+
+(*
+HX: this one is less efficient than the above one
+fun
+list_z2foreach
+( xs: 'a list
+, ys: 'b list
+, work2: ('a * 'b) -> unit): unit =
+list_foreach(list_zip2(xs, ys), fn (x1, y1) => work2(x1, y1))
+*)
 
 (* ****** ****** *)
 
@@ -787,7 +823,8 @@ list_z2map
 ( xs: 'a list
 , ys: 'b list
 , fopr: 'a * 'b -> 'c): 'c list =
-list_map(list_zip2(xs, ys), fopr)
+(
+  list_map(list_zip2(xs, ys), fopr))
 (*
 case (xs, ys) of
   (nil, _) => nil
@@ -806,6 +843,9 @@ list_forall(list_zip2(xs, ys), test)
 
 (* ****** ****** *)
 
+(*
+concat([1], [2,3], [1,2,3]) = [1,2,3,1,2,3]
+*)
 fun
 list_concat
 (xss: 'a list list): 'a list =
@@ -1087,7 +1127,7 @@ stream_append(fxs1, stream_concat(fxss))())
 (* ****** ****** *)
 
 fun
-stream_make_map(fxs, fopr) = fn () =>
+stream_map(fxs, fopr) = fn () =>
 (
 case fxs() of
 strcon_nil =>
@@ -1095,13 +1135,13 @@ strcon_nil
 |
 strcon_cons(x1, fxs) =>
 strcon_cons
-  (fopr(x1), stream_make_map(fxs, fopr))
+  (fopr(x1), stream_map(fxs, fopr))
 )
 
 (* ****** ****** *)
 
 fun
-stream_make_filter
+stream_filter
 ( fxs: 'a stream
 , test: 'a -> bool): 'a stream = fn () =>
 (
@@ -1111,15 +1151,15 @@ case fxs() of
 | strcon_cons(x1, fxs) =>
   if
   not(test(x1))
-  then stream_make_filter(fxs, test)()
+  then stream_filter(fxs, test)()
   else
-  strcon_cons(x1, stream_make_filter(fxs, test))
+  strcon_cons(x1, stream_filter(fxs, test))
 )
 
 (* ****** ****** *)
 
 fun
-stream_make_imap
+stream_imap
 ( fxs: 'a stream
 , ifopr
 : int * 'a -> 'b) =
@@ -1136,12 +1176,12 @@ strcon_cons
 ( ifopr(i0, x1)
 , helper(fxs, i0+1)) in helper(fxs, 0)
 (* ****** ****** *)
-end (* end-of-[stream_make_imap(fxs, ifopr)] *)
+end (* end-of-[stream_imap(fxs, ifopr)] *)
 
 (* ****** ****** *)
 
 fun
-stream_make_ifilter
+stream_ifilter
 ( fxs: 'a stream
 , itest: int * 'a -> bool): 'a stream =
 let
@@ -1160,7 +1200,7 @@ else
 strcon_cons
   (x1, helper(fxs, i0+1)) in helper(fxs, 0)
 (* ****** ****** *)
-end (* end-of-[stream_make_ifilter(fxs, ifopr)] *)
+end (* end-of-[stream_ifilter(fxs, ifopr)] *)
 
 (* ****** ****** *)
 (*

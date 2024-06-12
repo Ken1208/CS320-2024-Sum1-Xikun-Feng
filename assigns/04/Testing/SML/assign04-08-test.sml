@@ -5,7 +5,13 @@ use
 
 local
 
-exception Error
+exception ERROR_assign04_08
+
+fun
+myassert
+(claim: bool): unit =
+if claim
+then () else raise ERROR_assign04_08
 
 in (* in-of-local *)
 
@@ -26,9 +32,9 @@ list_streamize[3,3]
 val fxss =
 stream_ziplst([xs1, xs2, xs3])
 val (  ) =
-assert320(1 = stream_length(fxss))
+myassert(1 = stream_length(fxss))
 val (  ) =
-assert320([1,2,3] = stream_get_at(fxss,0))
+myassert([1,2,3] = stream_get_at(fxss,0))
 
 (* ****** ****** *)
 
@@ -41,11 +47,11 @@ list_streamize[1,2,3]
 val fxss =
 stream_ziplst([xs1, xs2, xs3])
 val (  ) =
-assert320([1,1,1] = stream_get_at(fxss,0))
+myassert([1,1,1] = stream_get_at(fxss,0))
 val (  ) =
-assert320([2,2,2] = stream_get_at(fxss,1))
+myassert([2,2,2] = stream_get_at(fxss,1))
 val (  ) =
-assert320([3,3,3] = stream_get_at(fxss,2))
+myassert([3,3,3] = stream_get_at(fxss,2))
 
 (* ****** ****** *)
 val () = print( "Assign04-08-test passed!\n" )

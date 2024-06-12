@@ -5,7 +5,13 @@ use
 
 local
 
-exception Error
+exception ERROR_assign04_05
+
+fun
+myassert
+(claim: bool): unit =
+if claim
+then () else raise ERROR_assign04_05
 
 in (* in-of-local *)
 
@@ -27,38 +33,38 @@ end
 val () =
 (
 print("check1(1) = ");
-print(Int.toString(check1(1, theNatPairs))); print("\n"))
+print(int2string(check1(1, theNatPairs))); print("\n"))
 val () =
 (
 print("check1(2) = ");
-print(Int.toString(check1(2, theNatPairs))); print("\n"))
+print(int2string(check1(2, theNatPairs))); print("\n"))
 val () =
 (
 print("check1(3) = ");
-print(Int.toString(check1(3, theNatPairs))); print("\n"))
+print(int2string(check1(3, theNatPairs))); print("\n"))
 (* ****** ****** *)
 val () =
 (
 print("check1(9) = ");
-print(Int.toString(check1(9, theNatPairs))); print("\n"))
+print(int2string(check1(9, theNatPairs))); print("\n"))
 (* ****** ****** *)
 val () =
 (
 print("check1(10) = ");
-print(Int.toString(check1(10, theNatPairs))); print("\n"))
+print(int2string(check1(10, theNatPairs))); print("\n"))
 val () =
 (
 print("check1(11) = ");
-print(Int.toString(check1(11, theNatPairs))); print("\n"))
+print(int2string(check1(11, theNatPairs))); print("\n"))
 (* ****** ****** *)
 val () =
-assert320(check1(9, theNatPairs) = 240)
+myassert(check1(9, theNatPairs) = 240)
 (* ****** ****** *)
 val () =
-assert320(check1(10, theNatPairs) = 330)
+myassert(check1(10, theNatPairs) = 330)
 (* ****** ****** *)
 val () =
-assert320(check1(11, theNatPairs) = 440)
+myassert(check1(11, theNatPairs) = 440)
 (* ****** ****** *)
 val () = print("Assign04-05-test passed!\n")
 (* ****** ****** *)
