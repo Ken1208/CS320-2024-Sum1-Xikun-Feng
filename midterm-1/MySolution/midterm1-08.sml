@@ -21,4 +21,19 @@ perm_capture_231(xs: int list): bool = ...
 *)
 (* ****** ****** *)
 
+fun perm_capture_231(xs: int list): bool =
+  let
+    (* Modifed the helper function check_231 *)
+    fun check_231([], _) = false
+      | check_231(x::xs, min_stack) =
+          let
+            val min_c = foldl (fn (m, v) => if v < m then v else m) x min_stack
+          in
+            if List.exists (fn b => b > x andalso x > min_c) min_stack then true
+            else check_231(xs, x::min_stack)
+          end
+  in
+    check_231(xs, [])
+  end;
+
 (* end of [CS320-2024-Sum1-midterm1-08.sml] *)

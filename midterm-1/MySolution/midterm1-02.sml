@@ -21,4 +21,24 @@ fun fibonacci_nrec(x: int): int = ...
 
 (* ****** ****** *)
 
+(* helper function copied from library  *)
+fun int1_foldr(xs: int, r0: 'a, f0: int * 'a -> 'a): 'a =
+  if xs <= 0 then r0
+  else int1_foldr(xs-1, f0(xs-1, r0), f0)
+
+(* My solution  *)
+fun fibonacci_nrec(x: int): int =
+  let
+    fun fib_helper(n: int, (a, b): (int * int)): (int * int) =
+      (b, a + b)
+
+    val (result, _) = int1_foldr(x, (0, 1), fib_helper)
+  in
+    result
+  end
+
+
+
+(* I modified the type of the input in the fib_helper function  *)
+
 (* end of [CS320-2024-Sum1-midterm1-02.sml] *)

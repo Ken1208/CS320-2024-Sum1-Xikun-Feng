@@ -33,11 +33,23 @@ end
 Given a sequence xs and an integer, lengte(xs, n)
 returns true if and only if the length of xs >= n
 Please give an implementation of lengte based on iforall:
-(*										     
+(*
 fun iforall_to_lengte(iforall) = fn(xs, n) => ...
 *)
 *)
 
 (* ****** ****** *)
+
+
+type ('seq, 'elt) iforall = 'seq * (int * 'elt -> bool) -> bool
+
+fun iforall_to_lengte(iforall) = fn (xs, n) =>
+  let
+    fun itest(i, _) = (i < n)
+  in
+    iforall(xs, itest)
+  end
+
+(* Added the implementation of itest function *)
 
 (* end of [CS320-2024-Sum1-midterm1-04.sml] *)

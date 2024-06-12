@@ -22,4 +22,16 @@ do, your implementation is DISQUALIFIED.
 
 (* ****** ****** *)
 
+fun fibonacci_trec(x: int): int =
+  let
+    fun helperFun(n: int, a: int, b: int): int =
+      if (n = 0) then a
+      else helperFun(n - 1, b, a + b)
+  in
+    helperFun(x, 0, 1)
+  end
+
+(* I added an equal sign at the first line  *)
+
+
 (* end of [CS320-2024-Sum1-midterm1-01.sml] *)
