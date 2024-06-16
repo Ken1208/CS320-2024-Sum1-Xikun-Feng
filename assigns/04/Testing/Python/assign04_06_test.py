@@ -1,9 +1,10 @@
 ######################################################
 import sys
 sys.setrecursionlimit(16000)
+######################################################
 sys.path.append('./../../MySolution/Python')
 ######################################################
-from assign03_06 import *
+from assign04_06 import *
 ######################################################
 def nqueen(bd):
     res = 0
@@ -33,23 +34,23 @@ theNQueenSols_20 = solve_N_queen_puzzle(20)
 ######################################################
 fxs = theNQueenSols_16
 cxs = fxs()
-fxs = cxs.cons2
-print(cxs.cons1)
-assert(board_safety_all(cxs.cons1))
+fxs = cxs.arg2
+print(cxs.arg1)
+assert(board_safety_all(cxs.arg1))
 cxs = fxs()
-fxs = cxs.cons2
-print(cxs.cons1)
-assert(board_safety_all(cxs.cons1))
+fxs = cxs.arg2
+print(cxs.arg1)
+assert(board_safety_all(cxs.arg1))
 ######################################################
 fxs = theNQueenSols_20
 cxs = fxs()
-fxs = cxs.cons2
-print(cxs.cons1)
-assert(board_safety_all(cxs.cons1))
+fxs = cxs.arg2
+print(cxs.arg1)
+assert(board_safety_all(cxs.arg1))
 cxs = fxs()
-fxs = cxs.cons2
-print(cxs.cons1)
-assert(board_safety_all(cxs.cons1))
+fxs = cxs.arg2
+print(cxs.arg1)
+assert(board_safety_all(cxs.arg1))
 ######################################################
 assert(stream_forall\
        (theNQueenSols_10, \

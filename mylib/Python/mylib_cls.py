@@ -1,7 +1,13 @@
 ###########################################################################
-###########################################################################
-# HX: This one is for Assign04
-###########################################################################
+# (* ****** ****** *)
+# (*
+# HX-2023-02-17:
+# Library functions
+# for BUCASCS320-2023-Spring
+# This is a class-wide library,
+# that is, it is shared by the class.
+# *)
+# (* ****** ****** *)
 ###########################################################################
 
 def int1_forall(n0, test_func):
@@ -151,6 +157,7 @@ def fnlist_make_pylist(xs): return pylist_fnlistize(xs)
 ####################################################
 def fnlist_filter_pylist(xs, test_func):
     return foreach_to_filter_pylist(fnlist_foreach)(xs, test_func)
+
 ###########################################################################
 
 def pylist_foreach(xs, work_func):
@@ -853,4 +860,5 @@ def stream_of_generator(xs):
     return lambda: strcon()
     
 ###########################################################################
-######################### end of [assign04_lib.py] #########################
+
+########################## end of [mylib-cls.py] ##########################
