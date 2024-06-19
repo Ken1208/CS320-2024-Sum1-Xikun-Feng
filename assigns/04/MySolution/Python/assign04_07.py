@@ -10,7 +10,7 @@ from assign04_lib import *
 HX-2024-06-01: 20 points
 Solving the doublet puzzle
 """
-####################################################
+###################################################
 def doublet_stream_from(word):
 """
 ######
@@ -33,4 +33,6 @@ tuples are always enumerated ahead of longer ones.
 ######
 """
     raise NotImplementedError
+
+
 ####################################################
