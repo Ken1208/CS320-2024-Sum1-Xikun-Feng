@@ -24,4 +24,15 @@ val the_ln2_stream: real stream = fn() => ...
 
 (* ****** ****** *)
 
+fun partial_sums_series(i, sum) = fn () =>
+  let
+    val next_term = if i mod 2 = 0 then 1.0 / Real.fromInt(i + 1) else ~1.0 / Real.fromInt(i + 1)
+    val next_sum = sum + next_term
+  in
+    strcon_cons (sum, partial_sums_series(i + 1, next_sum))
+  end
+
+val the_ln2_stream: real stream = partial_sums_series(1, 1.0)
+
+
 (* end of [CS320-2024-Sum1-assign04-04.sml] *)

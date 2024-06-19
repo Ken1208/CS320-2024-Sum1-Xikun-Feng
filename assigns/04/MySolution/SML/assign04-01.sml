@@ -46,4 +46,23 @@ ref_ifoldleft
 
 (* ****** ****** *)
 
+fun ref_get_at (r: 'a ref, i: int): 'a =
+  if i = 0 then
+    !r
+  else
+    raise Subscript
+
+fun ref_forall (r: 'a ref, test: 'a -> bool): bool =
+  test (!r)
+
+fun ref_map_list (r: 'a ref, f: 'a -> 'b): 'b list =
+  [f (!r)]
+
+fun ref_foldleft (r: 'a ref, res: 'r, f: ('r * 'a) -> 'r): 'r =
+  f (res, !r)
+
+fun ref_ifoldleft (r: 'a ref, res: 'r, f: ('r * int * 'a) -> 'r): 'r =
+  f (res, 0, !r)
+
+
 (* end of [CS320-2024-Sum1-assign04-01.sml] *)

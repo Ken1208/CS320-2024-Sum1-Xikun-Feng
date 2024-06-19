@@ -22,14 +22,15 @@ val ord = Char.ord
 
 (* ****** ****** *)
 
-val implode = String.implode
-val explode = String.explode
-
-(* ****** ****** *)
-(* ****** ****** *)
-
 val int2real = Real.fromInt
 val int2string = Int.toString
+
+(* ****** ****** *)
+
+val implode = String.implode
+val explode = String.explode
+val string_implode = String.implode
+val string_explode = String.explode
 
 (* ****** ****** *)
 (* ****** ****** *)
@@ -250,6 +251,16 @@ else (work(i0); loop(i0+1)) in loop(0(*i0*))
 end (* end of [int1_foreach(n0, work)]: let *)
 
 (* ****** ****** *)
+(* ****** ****** *)
+
+fun
+string_foreach
+(xs: string, work: char -> unit): unit =
+int1_foreach
+(string_size(xs), fn(i) => work(strsub(xs, i)))
+
+(* ****** ****** *)
+(* ****** ****** *)
 
 fun
 list_foreach
@@ -400,6 +411,14 @@ case xss of
   nil => nil
 | xs1 :: xss => list_append(xs1, list_concat(xss))
 *)
+
+(* ****** ****** *)
+
+fun
+list_tabulate
+(len: int, fopr: int -> 'a): 'a list =
+list_reverse
+(int1_foldleft(len, [], fn(res, i) => fopr(i) :: res))
 
 (* ****** ****** *)
 (* ****** ****** *)

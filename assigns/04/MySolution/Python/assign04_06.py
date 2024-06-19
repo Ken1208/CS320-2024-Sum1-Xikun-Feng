@@ -15,7 +15,7 @@ https://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/x631.html
 //
 """
 ####################################################
-def solve_N_queen_puzzle(N):
+# def solve_N_queen_puzzle(N):
 """
 ######
 A board of size N is a tuple of length N.
@@ -37,5 +37,38 @@ queen pieces (one on each row and on each column) such
 that no queen piece on the board can catch any other ones
 on the same board.
 """
-    raise NotImplementedError
+    # raise NotImplementedError
 ####################################################
+
+
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i] == col or \
+           board[i] - i == col - row or \
+           board[i] + i == col + row:
+            return False
+    return True
+
+def solve_n_queens_util(board, row, n, solutions):
+    if row == n:
+        solutions.append(tuple(board))
+        return
+
+    for col in range(n):
+        if is_safe(board, row, col):
+            board[row] = col
+            solve_n_queens_util(board, row + 1, n, solutions)
+            board[row] = -1
+
+def solve_N_queen_puzzle(N):
+    board = [-1] * N
+    solutions = []
+    solve_n_queens_util(board, 0, N, solutions)
+
+    def solutions_stream(solutions):
+        def generator():
+            for solution in solutions:
+                yield solution
+        return generator
+
+    return solutions_stream(solutions)

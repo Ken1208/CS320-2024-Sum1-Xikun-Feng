@@ -4,6 +4,20 @@ use "./../../assign04-lib.sml";
 (*
 HX-2024-06-12: 20 points
 *)
+
+fun
+string_foreach
+(xs: string, work: char -> unit): unit =
+int1_foreach
+(string_size(xs), fn(i) => work(strsub(xs, i)))
+
+fun
+list_tabulate
+(len: int, fopr: int -> 'a): 'a list =
+list_reverse
+(int1_foldleft(len, [], fn(res, i) => fopr(i) :: res))
+
+
 (* ****** ****** *)
 (*
 Note that you are not allowed to define
@@ -18,7 +32,7 @@ val
 string_filter = foreach_to_filter_list(string_foreach)
 val
 string_tabulate =
-fn(len, fopr) => string_implode(list_tabulate(len, fopr))
+fn(len, fopr) => implode(list_tabulate(len, fopr))
 
 (* ****** ****** *)
 
@@ -66,5 +80,19 @@ word_neighbors = fn(word: string) => ...
 *)
 
 (* ****** ****** *)
+
+val word_neighbors = fn(word: string) =>
+  let
+    val size = string_length word
+    val neighbors = int1_foldleft(size, [], fn (r0, x0) =>
+      list_foldright(int1_foldleft(26, [], fn (r, x1) =>
+        string_imap_list(word, fn (i, x) =>
+          if i = x0 then chr(ord(#"a") + x1) else x
+        )::r
+      ), [], fn (x, r) => implode(x)::r)::r0
+    )
+  in
+    list_foldleft(list_foldleft(neighbors, [], fn (r0, x0) => x0 @ r0), [], fn (r, x) => if x = word then r else x::r)
+  end
 
 (* end of [CS320-2024-Sum1-assign03-02.sml] *)
