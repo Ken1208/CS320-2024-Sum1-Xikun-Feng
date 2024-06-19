@@ -40,4 +40,20 @@ tree_pre_foreach_trec
 
 (* ****** ****** *)
 
+fun
+tree_pre_foreach_trec
+(xs: 'a tree, work: 'a -> unit): unit =
+  let
+    fun helper ([], _) = ()
+      | helper (tree_nil :: ts, work) = helper (ts, work)
+      | helper (tree_cons(tl, x0, tr) :: ts, work) =
+          (work(x0); helper (tl :: tr :: ts, work))
+  in
+    helper ([xs], work)
+  end
+
+(*
+I added another case in the helper function
+*)
+
 (* end of [CS320-2024-Sum1-midterm2-03.sml] *)

@@ -26,4 +26,26 @@ fun midterm2_04(xs: 'a list): 'a stream = ...
 
 (* ****** ****** *)
 
+fun midterm2_04 (xs: 'a list): 'a stream =
+  let
+    val rev_xs = rev xs
+
+    fun create_stream (lst, rev_lst) () =
+      let
+        fun helper ([], []) = create_stream (lst, rev_lst) ()
+          | helper ([], ys) = strcon_cons (hd ys, fn () => helper ([], tl ys))
+          | helper (xs, ys) = strcon_cons (hd xs, fn () => helper (tl xs, ys))
+      in
+        helper (lst, rev_lst)
+      end
+
+  in
+    fn () => create_stream (xs, rev_xs) ()
+  end
+
+(*
+I modified the create_stream function and another helper function,
+and also deleted the take funtion which I didn't use
+*)
+
 (* end of [CS320-2024-Sum1-midterm2-04.sml] *)

@@ -1,5 +1,15 @@
 (* ****** ****** *)
 
+(* ****** ****** *)
+datatype 'a strcon =
+  strcon_nil
+| strcon_cons of
+  ('a * (unit -> 'a strcon))
+
+(* ****** ****** *)
+type 'a stream = (unit -> 'a strcon)
+(* ****** ****** *)
+
 (*
 HX: 10 points:
 Given an infinite stream:
@@ -23,5 +33,28 @@ stream_maxize(xs: int stream): int stream
 *)
 
 (* ****** ****** *)
+
+fun stream_maximize (xs: int stream): int stream =
+  let
+    fun find_next (xs: int stream, prev: int): int stream =
+      fn () =>
+        case xs () of
+          strcon_nil => strcon_nil
+        | strcon_cons (x, xs') =>
+            if x > prev then strcon_cons (x, find_next (xs', x))
+            else find_next (xs', prev) ()
+    fun make_stream (xs: int stream): int stream =
+      fn () =>
+        case xs () of
+          strcon_nil => strcon_nil
+        | strcon_cons (x, xs') => strcon_cons (x, find_next (xs', x))
+  in
+    make_stream xs
+  end
+
+(*
+I modified the two helper functions find_next and make_stream
+*)
+
 
 (* end of [CS320-2024-Sum1-midterm2-06.sml] *)

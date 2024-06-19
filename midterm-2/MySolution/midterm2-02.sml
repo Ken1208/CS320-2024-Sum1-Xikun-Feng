@@ -47,4 +47,15 @@ tree_fold
 
 (* ****** ****** *)
 
+fun
+tree_fold
+( xs: 'a tree
+, r0: 'r
+, fopr: 'r * 'a * 'r -> 'r): 'r =
+  tree_pre_fold(xs, r0, fn (x, l, r) => fopr(l, x, r))
+
+(*
+I modified the fn in the tree_pre_fold
+*)
+
 (* end of [CS320-2024-Sum1-midterm2-02.sml] *)
