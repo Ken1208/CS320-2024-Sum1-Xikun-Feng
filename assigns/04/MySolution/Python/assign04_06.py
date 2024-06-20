@@ -15,6 +15,55 @@ https://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/x631.html
 //
 """
 ####################################################
+def nqueen(bd):
+    res = 0
+    for j0 in bd:
+        if j0 <= 0:
+            break
+        else:
+            res = res + 1
+    return res
+
+def set_board(bd, i0, j0):
+    lst = list(bd)
+    lst[i0] = j0
+    return tuple(lst)
+
+def poss_checker(bd, i0, j0):
+    def helper(k0):
+        pk = bd[k0]
+        return pk != j0 and abs(i0 - k0) != abs(j0 - pk)
+    return int1_forall(i0, helper)
+
+def board_safety_all(bd):
+    return int1_forall(nqueen(bd), lambda i0: board_safety_one(bd, i0))
+
+def board_safety_one(bd, i0):
+    def helper(j0):
+        pi = bd[i0]
+        pj = bd[j0]
+        return pi != pj and abs(i0 - j0) != abs(pi - pj)
+    return int1_forall(i0, helper)
+
+def children(node, size, stack):
+    nqueen_curr = nqueen(node)
+    def helper(j):
+        if poss_checker(node, nqueen_curr, j):
+            temp_bd = set_board(node, nqueen_curr, j)
+            stack.append(temp_bd)
+    int1_foreach(size + 1, lambda i: () if i == 0 else helper(i))
+    return None
+
+def gtree_dfs(stack, fchildren, size):
+    def helper(stack):
+        if not stack:
+            return strcon_nil()
+        else:
+            curr = stack.pop()
+            fchildren(curr, size, stack)
+            return strcon_cons(curr, lambda: helper(stack))
+    return lambda: helper(stack)
+
 def solve_N_queen_puzzle(N):
     """
     ######
@@ -37,5 +86,6 @@ def solve_N_queen_puzzle(N):
     that no queen piece on the board can catch any other ones
     on the same board.
     """
-    raise NotImplementedError
+    initial_stack = [(0,) * N]
+    return stream_make_filter(gtree_dfs(initial_stack, children, N), lambda bd: nqueen(bd) == N)
 ####################################################
