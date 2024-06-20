@@ -19,32 +19,27 @@ matrix.
 
 (* ****** ****** *)
 
-fun stream_ziplst (strlst: 'a stream list): 'a list stream =
+
+fun stream_ziplst(xs: 'a stream list): 'a list stream=fn()=>
+  let
+    fun checker(xxs:'a stream list): bool=
+        list_forall(xxs, fn (x) =>
+       case x () of
+        strcon_nil=> false
+        |_ => true)
+  in
+    if (checker(xs)) then
     let
-        fun get_column i =
-            let
-                fun collect (acc, s) = (stream_get_at (s, i)) :: acc
-                val collected = foreach_to_foldleft (list_foreach) (strlst, [], collect)
-            in
-                list_reverse collected
-            end
-
-        fun min_length lst =
-            let
-                fun aux ([], min_len) = min_len
-                  | aux (s::ss, min_len) =
-                      let val len = stream_length s
-                      in aux (ss, if len < min_len then len else min_len)
-                      end
-                val initial_min_len = 1000000
-            in
-                aux (lst, initial_min_len)
-            end
-
+      val rest= list_map(xs,fn(x)=> 
+          case x () of
+           strcon_cons(x1, fxs) => fxs
+          |  _=> raise Empty )
     in
-        stream_tabulate (min_length strlst, get_column)
+       strcon_cons(list_foldright(xs,[],fn(x,r)=> stream_get_at(x,0)::r),stream_ziplst(rest))
     end
 
+      else strcon_nil
+  end
 
 
 
