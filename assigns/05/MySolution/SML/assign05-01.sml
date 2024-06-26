@@ -17,4 +17,23 @@ stream_permute_list(xs: 'a list): 'a list stream = ...
 
 (* ****** ****** *)
 
+fun
+stream_permute_list(xs: 'a list): 'a list stream =
+  let
+    fun list_insert(x, []) = [[x]]
+      | list_insert(x, y::ys) =
+        let
+          val insert = x :: y :: ys
+          val mapped = list_map (list_insert(x, ys), fn ys => y :: ys)
+        in
+          insert :: mapped
+        end
+
+    fun permutate_helper [] = list_streamize [[]]
+      | permutate_helper (x::xs) =
+        stream_concat (stream_map (permutate_helper xs, fn x1 => list_streamize (list_insert(x, x1))))
+  in
+    permutate_helper xs
+  end
+
 (* end of [CS320-2024-Sum1-assign05-01.sml] *)

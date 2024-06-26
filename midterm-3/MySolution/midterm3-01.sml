@@ -38,4 +38,6 @@ my_list_reverse = list_foldright(xs, blank1, blank2)
 
 (* ****** ****** *)
 
+val my_list_reverse = list_foldright(xs, [], fn (x, acc) => acc @ [x])
+
 (* end of [CS320-2024-Sum1-midterm3-01.sml] *)
